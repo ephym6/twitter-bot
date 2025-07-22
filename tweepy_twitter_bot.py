@@ -17,6 +17,12 @@ auth.set_access_token(access_token, access_token_secret)
 api = tw.API(auth)
 
 # Check if program is working
-user = api.verify_credentials()
-print(user.name)
+try:
+    user = api.verify_credentials()
+    print(user.name)
+except tw.TweepyException as e:
+    print(f"Authentication Error: {e}")
+except Exception as e:
+    print(f"Error: {e}")
+
 
