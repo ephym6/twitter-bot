@@ -47,6 +47,24 @@ E6 = tk.Entry(root, bd =5)
 label_7 = tk.Label(root, text="Follow")
 E7 = tk.Entry(root, bd =5)
 
+# store user input in labels using .get() function
+# then call function getE1() in bot_function() and
+# store the input into a variable
+def get_e1():
+    return E1.get()
+def get_e2():
+    return E2.get()
+def get_e3():
+    return E3.get()
+def get_e4():
+    return E4.get()
+def get_e5():
+    return E5.get()
+def get_e6():
+    return E6.get()
+def get_e7():
+    return E7.get()
+
 # Building the Bot
 # This bot is meant to:
 #
@@ -169,21 +187,3 @@ submit_button = tk.Button(root, text="Submit", command=bot_function)
 submit_button.pack()
 
 root.mainloop()
-
-# store user input in labels using .get() function
-# then call function getE1() in bot_function() and
-# store the input into a variable
-def get_e1():
-    return E1.get()
-def get_e2():
-    return E2.get()
-def get_e3():
-    return E3.get()
-def get_e4():
-    return E4.get()
-def get_e5():
-    return E5.get()
-def get_e6():
-    return E6.get()
-def get_e7():
-    return E7.get()
