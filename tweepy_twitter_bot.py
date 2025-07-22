@@ -94,3 +94,21 @@ def bot_function():
             print(f"Twitter API Error: {str(tweep_error)}")
         except StopIteration:
             break
+
+# packing labels
+# so that they show up and then call the root function in a loop
+# so that it remains on the screen and doesn’t immediately close.
+label_1.pack()
+E1.pack()
+label_2.pack()
+E2.pack()
+label_3.pack()
+E3.pack()
+label_4.pack()
+E4.pack()
+label_5.pack()
+E5.pack()
+label_6.pack()
+E6.pack()
+label_7.pack()
+E7.pack()
