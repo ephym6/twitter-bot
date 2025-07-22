@@ -79,8 +79,8 @@ def bot_function():
     get_e7()
     follow = get_e7()
 
-    search_term = "Keyword"
-    number_of_tweets = "Number of tweets you wish to interact with"
+    search_term = search
+    number_of_tweets = number_of_tweets
     for tweet in tw.Cursor(api.search_tweets, search_term).items(number_of_tweets):
         try:
             # Like tweet
@@ -99,7 +99,7 @@ def bot_function():
             break
 
     # Reply to a user based on a keyword
-    phrase = "What you would like your response tweet to say"
+    phrase = response
     for tweet in tw.Cursor(api.search_tweets, search_term).items(number_of_tweets):
         try:
             tweet_id = tweet.user.id
@@ -114,25 +114,7 @@ def bot_function():
     # For the last four labels (Reply, Favorite, Retweet and Follow),
     # we need to check to see if the input from the user is “yes” or “no”
     # in order to run that given function or not.
-    if favorite == "yes":
-        for tweet in tw.Cursor(api.search_tweets, search_term).items(number_of_tweets):
-            try:
-                # Like tweet
-                if not tweet.favorited:
-                    tweet.create_favorite()
-                    print(f"Liked {tweet.user.name}'s tweet")
-
-                # Retweet
-                if not tweet.retweeted:
-                    tweet.retweet()
-                    print(f"Retweeted {tweet.user.name}'s tweet")
-
-            except tw.TweepyException as tweep_error:
-                print(f"Twitter API Error: {str(tweep_error)}")
-            except StopIteration:
-                break
-
-    if retweet == "yes":
+    if favorite and retweet == "yes":
         for tweet in tw.Cursor(api.search_tweets, search_term).items(number_of_tweets):
             try:
                 # Like tweet
@@ -181,6 +163,10 @@ label_6.pack()
 E6.pack()
 label_7.pack()
 E7.pack()
+
+# Add submit button & packing
+submit_button = tk.Button(root, text="Submit", command=bot_function)
+submit_button.pack()
 
 root.mainloop()
 
