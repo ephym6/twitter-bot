@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv
 import tweepy as tw
 import tkinter as tk # for GUI interface
@@ -40,4 +41,22 @@ except Exception as e:
 #     else:
 #         print(f"Already following {follower.name}")
 
+def bot_function():
+    search_term = "Liverpool"
+    number_of_tweets = 10
+    for tweet in tw.Cursor(api.search_tweets, search_term).items(number_of_tweets):
+        try:
+            # Like tweet
+            if not tweet.favorited:
+                tweet.create_favorite()
+                print(f"Liked {tweet.user.name}'s tweet")
 
+            # Retweet
+            if not tweet.retweeted:
+                tweet.retweet()
+                print(f"Retweeted {tweet.user.name}'s tweet")
+
+        except tw.TweepyException as tweep_error:
+            print(f"Twitter API Error: {str(tweep_error)}")
+        except StopIteration:
+            break
