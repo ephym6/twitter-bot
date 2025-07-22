@@ -25,4 +25,19 @@ except tw.TweepyException as e:
 except Exception as e:
     print(f"Error: {e}")
 
+# Building the Bot
+# This bot is meant to:
+#
+# 1. Follow everyone following you.
+# 2. Favorite and Retweet a Tweet based on keywords.
+# 3. Reply to a user based on a keyword.
+
+# loop through your followers and then follow each one.
+# for follower in tw.Cursor(api.get_followers).items():
+#     if not follower.following:  # Only follow if not already following
+#         follower.follow()
+#         print(f"Following {follower.name}")
+#     else:
+#         print(f"Already following {follower.name}")
+
 
