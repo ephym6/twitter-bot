@@ -1,5 +1,7 @@
 # Twitter Bot with GUI
 
+> ⚠️ **API Limitation Warning**: This bot requires a paid Twitter API subscription (minimum Basic tier - $100/month) to function properly. Free API access will not work with most features. See [Service Limitations](#service-limitations) section for details.
+
 A Python-based Twitter bot with a graphical user interface that allows you to automate various Twitter interactions such as searching, liking, retweeting, and replying to tweets.
 
 ## Features
@@ -72,6 +74,38 @@ The bot includes error handling for:
 - Invalid input values
 - Network issues
 - Twitter API exceptions
+
+## ⚠️ Service Limitations
+
+**Important Notice**: As of February 2024, Twitter (X) has significantly changed its API access policy:
+
+1. **Basic (Free) API Access**:
+   - Limited to read-only operations
+   - No access to search functionality
+   - Restricted tweet posting capabilities
+   - Rate limited to 1,500 tweets per month
+
+2. **Basic Tier ($100/month)**:
+   - Required for most bot functionalities
+   - Includes search API access
+   - Allows posting tweets
+   - Up to 10,000 tweets per month
+   - Access to like, retweet, and reply features
+
+3. **Pro Tier ($5000/month)**:
+   - Full API access
+   - Higher rate limits
+   - Advanced features
+
+**Impact on This Bot**: 
+Due to these restrictions, this bot will not function properly with a free API key. To use this bot's full functionality, you will need at least a Basic tier subscription from Twitter's API platform. Without a paid subscription, you will encounter "403 Forbidden" errors when attempting to use features like search, automated replies, or bulk interactions.
+
+**Alternatives**:
+- Consider using the bot with reduced functionality (reading timeline only)
+- Use Twitter's official tools for basic interactions
+- Explore other social media platforms with more accessible APIs
+
+For more information about Twitter's API pricing and limitations, visit their [Developer Portal](https://developer.twitter.com/en/portal/pricing).
 
 ## Contributing
 
