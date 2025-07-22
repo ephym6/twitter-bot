@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 import tweepy as tw
 import tkinter as tk
+from typing import Dict
 
 # Load environment variables from .env file
 load_dotenv()
@@ -19,81 +20,95 @@ client = tw.Client(
     access_token_secret=access_token_secret
 )
 
-# Check if program is working
-try:
-    me = client.get_me()
-    print(f"Connected as: {me.data.name}")
-except tw.TweepyException as e:
-    print(f"Authentication Error: {e}")
-except Exception as e:
-    print(f"Error: {e}")
+class TwitterBot:
+    def __init__(self):
+        self.root = tk.Tk()
+        self.root.title("Twitter Bot")
+        self.entries: Dict[str, tk.Entry] = {}
+        self.setup_gui()
 
-def bot_function():
-    try:
-        # Get inputs
-        search = E1.get()
-        number_of_tweets = int(E2.get())
-        response = E3.get()
-        reply = E4.get()
-        favorite = E5.get()
-        retweet = E6.get()
-        follow = E7.get()
+    def setup_gui(self):
+        # Labels and Entries
+        labels_entries = [
+            ("Search", "search"),
+            ("Number of Tweets", "tweets_number"),
+            ("Response", "response"),
+            ("Reply (yes/no)", "reply"),
+            ("Favorite (yes/no)", "favorite"),
+            ("Retweet (yes/no)", "retweet"),
+            ("Follow (yes/no)", "follow")
+        ]
 
-        # Search tweets (API v2)
-        tweets = client.search_recent_tweets(
-            query=search,
-            max_results=min(number_of_tweets, 100)  # API v2 has a limit of 100
-        )
+        for label_text, entry_key in labels_entries:
+            label = tk.Label(self.root, text=label_text)
+            label.pack()
+            entry = tk.Entry(self.root, bd=5)
+            entry.pack()
+            self.entries[entry_key] = entry
 
-        if tweets.data:
-            for tweet in tweets.data:
-                try:
-                    if favorite.lower() == "yes":
-                        client.like(tweet.id)
-                        print(f"Liked tweet {tweet.id}")
+        submit_button = tk.Button(self.root, text="Submit", command=self.bot_function)
+        submit_button.pack()
 
-                    if retweet.lower() == "yes":
-                        client.retweet(tweet.id)
-                        print(f"Retweeted tweet {tweet.id}")
+    def bot_function(self):
+        try:
+            # Get inputs
+            search = self.entries["search"].get()
+            number_of_tweets = int(self.entries["tweets_number"].get())
+            response = self.entries["response"].get()
+            reply = self.entries["reply"].get()
+            favorite = self.entries["favorite"].get()
+            retweet = self.entries["retweet"].get()
+            follow = self.entries["follow"].get()
 
-                    if reply.lower() == "yes":
-                        client.create_tweet(
-                            text=response,
-                            in_reply_to_tweet_id=tweet.id
-                        )
-                        print(f"Replied to tweet {tweet.id}")
+            # Search tweets (API v2)
+            tweets = client.search_recent_tweets(
+                query=search,
+                max_results=min(number_of_tweets, 100)  # API v2 has a limit of 100
+            )
 
-                except tw.TweepyException as e:
-                    print(f"Error processing tweet {tweet.id}: {e}")
+            if tweets.data:
+                for tweet in tweets.data:
+                    try:
+                        if favorite.lower() == "yes":
+                            client.like(tweet.id)
+                            print(f"Liked tweet {tweet.id}")
 
-    except tw.TweepyException as e:
-        print(f"Twitter API Error: {e}")
-    except Exception as e:
-        print(f"Error: {e}")
+                        if retweet.lower() == "yes":
+                            client.retweet(tweet.id)
+                            print(f"Retweeted tweet {tweet.id}")
 
-# Create GUI
-root = tk.Tk()
-root.title("Twitter Bot")
+                        if reply.lower() == "yes":
+                            client.create_tweet(
+                                text=response,
+                                in_reply_to_tweet_id=tweet.id
+                            )
+                            print(f"Replied to tweet {tweet.id}")
 
-# Labels and Entries
-labels_entries = [
-    ("Search", "E1"),
-    ("Number of Tweets", "E2"),
-    ("Response", "E3"),
-    ("Reply (yes/no)", "E4"),
-    ("Favorite (yes/no)", "E5"),
-    ("Retweet (yes/no)", "E6"),
-    ("Follow (yes/no)", "E7")
-]
+                        if follow.lower() == "yes":
+                            client.follow_user(tweet.author_id)
+                            print(f"Followed user {tweet.author_id}")
 
-for label_text, entry_name in labels_entries:
-    label = tk.Label(root, text=label_text)
-    label.pack()
-    entry = tk.Entry(root, bd=5)
-    entry.pack()
-    globals()[entry_name] = entry
+                    except tw.TweepyException as tweep_error:
+                        print(f"Error processing tweet {tweet.id}: {tweep_error}")
 
-submit_button = tk.Button(root, text="Submit", command=bot_function)
-submit_button.pack()
+        except tw.TweepyException as tweep_error:
+            print(f"Twitter API Error: {tweep_error}")
+        except ValueError as val_error:
+            print(f"Input Error: {val_error}")
+        except Exception as general_error:
+            print(f"Error: {general_error}")
 
-root.mainloop()
+    def run(self):
+        # Check if program is working
+        try:
+            me = client.get_me()
+            print(f"Connected as: {me.data.name}")
+        except tw.TweepyException as auth_error:
+            print(f"Authentication Error: {auth_error}")
+            return
+
+        self.root.mainloop()
+
+if __name__ == "__main__":
+    bot = TwitterBot()
+    bot.run()
