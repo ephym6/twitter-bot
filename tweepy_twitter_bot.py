@@ -26,6 +26,27 @@ except tw.TweepyException as e:
 except Exception as e:
     print(f"Error: {e}")
 
+# Creating the GUI
+# will take our inputs of the keyword you would like to search for and
+# whether or not you would like to favorite a tweet.
+
+root = tk.Tk()
+# Labels
+label_1 = tk.Label(root, text="Search")
+E1 = tk.Entry(root, bd =5)
+label_2 = tk.Label(root, text="Number of Tweets")
+E2 = tk.Entry(root, bd =5)
+label_3 = tk.Label(root, text="Response")
+E3 = tk.Entry(root, bd =5)
+label_4 = tk.Label(root, text="Reply")
+E4 = tk.Entry(root, bd =5)
+label_5 = tk.Label(root, text="Favorite")
+E5 = tk.Entry(root, bd =5)
+label_6 = tk.Label(root, text="Retweet")
+E6 = tk.Entry(root, bd =5)
+label_7 = tk.Label(root, text="Follow")
+E7 = tk.Entry(root, bd =5)
+
 # Building the Bot
 # This bot is meant to:
 #
@@ -73,4 +94,3 @@ def bot_function():
             print(f"Twitter API Error: {str(tweep_error)}")
         except StopIteration:
             break
-
