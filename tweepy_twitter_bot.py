@@ -82,19 +82,12 @@ def get_e7():
 
 def bot_function():
     # call & store inputs
-    get_e1()
     search = get_e1()
-    get_e2()
     number_of_tweets = int(get_e2()) # convert to int
-    get_e3()
     response = get_e3()
-    get_e4()
     reply = get_e4()
-    get_e5()
     favorite = get_e5()
-    get_e6()
     retweet = get_e6()
-    get_e7()
     follow = get_e7()
 
     search_term = search
