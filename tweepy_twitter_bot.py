@@ -112,3 +112,5 @@ label_6.pack()
 E6.pack()
 label_7.pack()
 E7.pack()
+
+root.mainloop()
