@@ -95,6 +95,22 @@ def bot_function():
         except StopIteration:
             break
 
+    # call & store inputs
+    get_e1()
+    search = get_e1()
+    get_e2()
+    number_of_tweets = int(get_e2()) # convert to int
+    get_e3()
+    response = get_e3()
+    get_e4()
+    reply = get_e4()
+    get_e5()
+    favorite = get_e5()
+    get_e6()
+    retweet = get_e6()
+    get_e7()
+    follow = get_e7()
+
 # packing labels
 # so that they show up and then call the root function in a loop
 # so that it remains on the screen and doesn’t immediately close.
@@ -114,3 +130,21 @@ label_7.pack()
 E7.pack()
 
 root.mainloop()
+
+# store user input in labels using .get() function
+# then call function getE1() in bot_function() and
+# store the input into a variable
+def get_e1():
+    return E1.get()
+def get_e2():
+    return E2.get()
+def get_e3():
+    return E3.get()
+def get_e4():
+    return E4.get()
+def get_e5():
+    return E5.get()
+def get_e6():
+    return E6.get()
+def get_e7():
+    return E7.get()
