@@ -63,6 +63,22 @@ E7 = tk.Entry(root, bd =5)
 #         print(f"Already following {follower.name}")
 
 def bot_function():
+    # call & store inputs
+    get_e1()
+    search = get_e1()
+    get_e2()
+    number_of_tweets = int(get_e2()) # convert to int
+    get_e3()
+    response = get_e3()
+    get_e4()
+    reply = get_e4()
+    get_e5()
+    favorite = get_e5()
+    get_e6()
+    retweet = get_e6()
+    get_e7()
+    follow = get_e7()
+
     search_term = "Keyword"
     number_of_tweets = "Number of tweets you wish to interact with"
     for tweet in tw.Cursor(api.search_tweets, search_term).items(number_of_tweets):
@@ -95,21 +111,58 @@ def bot_function():
         except StopIteration:
             break
 
-    # call & store inputs
-    get_e1()
-    search = get_e1()
-    get_e2()
-    number_of_tweets = int(get_e2()) # convert to int
-    get_e3()
-    response = get_e3()
-    get_e4()
-    reply = get_e4()
-    get_e5()
-    favorite = get_e5()
-    get_e6()
-    retweet = get_e6()
-    get_e7()
-    follow = get_e7()
+    # For the last four labels (Reply, Favorite, Retweet and Follow),
+    # we need to check to see if the input from the user is “yes” or “no”
+    # in order to run that given function or not.
+    if favorite == "yes":
+        for tweet in tw.Cursor(api.search_tweets, search_term).items(number_of_tweets):
+            try:
+                # Like tweet
+                if not tweet.favorited:
+                    tweet.create_favorite()
+                    print(f"Liked {tweet.user.name}'s tweet")
+
+                # Retweet
+                if not tweet.retweeted:
+                    tweet.retweet()
+                    print(f"Retweeted {tweet.user.name}'s tweet")
+
+            except tw.TweepyException as tweep_error:
+                print(f"Twitter API Error: {str(tweep_error)}")
+            except StopIteration:
+                break
+
+    if retweet == "yes":
+        for tweet in tw.Cursor(api.search_tweets, search_term).items(number_of_tweets):
+            try:
+                # Like tweet
+                if not tweet.favorited:
+                    tweet.create_favorite()
+                    print(f"Liked {tweet.user.name}'s tweet")
+
+                # Retweet
+                if not tweet.retweeted:
+                    tweet.retweet()
+                    print(f"Retweeted {tweet.user.name}'s tweet")
+
+            except tw.TweepyException as tweep_error:
+                print(f"Twitter API Error: {str(tweep_error)}")
+            except StopIteration:
+                break
+
+    if reply == "yes":
+        for tweet in tw.Cursor(api.search_tweets, search_term).items(number_of_tweets):
+            try:
+                tweet_id = tweet.user.id
+                username = tweet.user.screen_name
+                api.update_status(status=f"@{username} {phrase}", in_reply_to_status_id=tweet_id)
+                print(f"Replied to {username}'s  with {phrase}")
+            except tw.TweepyException as tweep_error:
+                print(f"Twitter API Error: {str(tweep_error)}")
+            except StopIteration:
+                break
+
+
 
 # packing labels
 # so that they show up and then call the root function in a loop
