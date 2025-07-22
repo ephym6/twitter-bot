@@ -60,3 +60,17 @@ def bot_function():
             print(f"Twitter API Error: {str(tweep_error)}")
         except StopIteration:
             break
+
+    # Reply to a user based on a keyword
+    phrase = "What you would like your response tweet to say"
+    for tweet in tw.Cursor(api.search_tweets, search_term).items(number_of_tweets):
+        try:
+            tweet_id = tweet.user.id
+            username = tweet.user.screen_name
+            api.update_status(status=f"@{username} {phrase}", in_reply_to_status_id=tweet_id)
+            print(f"Replied to {username}'s  with {phrase}")
+        except tw.TweepyException as tweep_error:
+            print(f"Twitter API Error: {str(tweep_error)}")
+        except StopIteration:
+            break
+
