@@ -42,8 +42,8 @@ except Exception as e:
 #         print(f"Already following {follower.name}")
 
 def bot_function():
-    search_term = "Liverpool"
-    number_of_tweets = 10
+    search_term = "Keyword"
+    number_of_tweets = "Number of tweets you wish to interact with"
     for tweet in tw.Cursor(api.search_tweets, search_term).items(number_of_tweets):
         try:
             # Like tweet
