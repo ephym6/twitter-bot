@@ -25,11 +25,12 @@ A Python-based Twitter bot with a graphical user interface that allows you to au
 1. Clone the repository:
 2. Install required dependencies:
 3. Create a `.env` file in the project root directory with your Twitter API credentials:
+```env
    TWITTER_CONSUMER_KEY=your_api_key
    TWITTER_CONSUMER_SECRET=your_api_secret
    TWITTER_ACCESS_TOKEN=your_access_token
    TWITTER_ACCESS_TOKEN_SECRET=your_access_token_secret
-
+```
 
 ## Usage
 
@@ -55,9 +56,9 @@ The bot uses the following environment variables:
 
 ## Dependencies
 
-- tweepy: Twitter API wrapper for Python
-- python-dotenv: Environment variable management
-- tkinter: GUI library (included with Python)
+- `tweepy`: Twitter API wrapper for Python
+- `python-dotenv`: Environment variable management
+- `tkinter`: GUI library (included with Python)
 
 ## Important Notes
 
